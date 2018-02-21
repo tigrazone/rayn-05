@@ -1,0 +1,60 @@
+////////////////////////////////////////////////////////////////////////////
+//
+// nrSurface.h
+//
+// A class for surfaces.
+//
+// Nate Robins, January 2002.
+//
+////////////////////////////////////////////////////////////////////////////
+
+#ifndef NRSURFACE_H
+#define NRSURFACE_H
+
+
+////////////////////////////////////////////////////////////////////////////
+// Includes
+////////////////////////////////////////////////////////////////////////////
+
+#include "nrBound.h"
+#include "nrMaterial.h"
+#include "nrVector3.h"
+
+
+////////////////////////////////////////////////////////////////////////////
+// Classes
+////////////////////////////////////////////////////////////////////////////
+
+class nrHit;
+class nrInterval;
+class nrRay;
+
+////////////////////////////////////////////////////////////////////////////
+
+class nrSurface
+{
+public:
+    
+    nrSurface( void );
+    virtual ~nrSurface( void );
+    
+    // Return true if the ray hit the surface, false otherwise.
+    virtual bool Hit( const nrRay& ray, nrInterval& interval, nrHit& hit ) const = 0;
+    
+    // Return the bound of the surface.
+    virtual nrBound Bound() const = 0;
+    
+    // Return the normal to the surface at the point (on the surface).
+    virtual nrVector3 Normal( const nrVector3& point ) const = 0;
+    
+    // Return the material of the surface.
+    virtual const nrMaterial* Material( void ) const = 0;
+    
+protected:
+    
+    char* m_Name;
+};
+
+////////////////////////////////////////////////////////////////////////////
+
+#endif  // NRSURFACE_H

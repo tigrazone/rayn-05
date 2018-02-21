@@ -1,0 +1,86 @@
+////////////////////////////////////////////////////////////////////////////
+//
+// nrAtomList.cpp
+//
+// A class for atoms containing lists.
+//
+// Nate Robins, January 2002.
+//
+////////////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////////////////
+// Includes
+////////////////////////////////////////////////////////////////////////////
+
+#include "nrAtomList.h"
+
+#include <assert.h>
+#include <string.h>
+
+
+////////////////////////////////////////////////////////////////////////////
+// Public
+////////////////////////////////////////////////////////////////////////////
+
+nrAtomList::nrAtomList( const char* name ) :
+    nrAtom( name )
+{
+}
+
+////////////////////////////////////////////////////////////////////////////
+
+nrAtomList::~nrAtomList( void )
+{
+    for ( int i = 0; i < m_ListString.Length(); i++ )
+    {
+        delete m_ListString[ i ];
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////
+
+nrAtomList* nrAtomList::NewFromInt( const nrArray<int>& list, const char* name )
+{
+    nrAtomList* a = new nrAtomList( name );
+    assert( a );    // out of memory.
+    
+    a->m_Type = INT;
+    //a->m_ListInt = list;
+    
+    return a;
+}
+
+////////////////////////////////////////////////////////////////////////////
+
+nrAtomList* nrAtomList::NewFromFloat( const nrArray<float>& list, const char* name )
+{
+    nrAtomList* a = new nrAtomList( name );
+    assert( a );    // out of memory.
+    
+    a->m_Type = FLOAT;
+    //a->m_ListFloat = list;
+    
+    return a;
+}
+
+////////////////////////////////////////////////////////////////////////////
+
+nrAtomList* nrAtomList::NewFromString( const nrArray<char*>& list, const char* name )
+{
+    nrAtomList* a = new nrAtomList( name );
+    assert( a );    // out of memory.
+    
+    a->m_Type = STRING;
+    
+    //if ( list.Length() != 0 )
+    //{
+    //    a->m_ListString = new char[ strlen( value ) + 1 ];
+    //    assert( a->m_ListString );    // out of memory.
+    //    strcpy( a->m_ListString, name );
+    //}
+    
+    return a;
+}
+
+////////////////////////////////////////////////////////////////////////////

@@ -1,0 +1,61 @@
+////////////////////////////////////////////////////////////////////////////
+//
+// nrChannelMarble.h
+//
+// A class for channels.
+//
+// Nate Robins, March 2002.
+//
+////////////////////////////////////////////////////////////////////////////
+
+#ifndef NRCHANNELMARBLE_H
+#define NRCHANNELMARBLE_H
+
+
+////////////////////////////////////////////////////////////////////////////
+// Includes
+////////////////////////////////////////////////////////////////////////////
+
+#include "nrChannel.h"
+
+
+////////////////////////////////////////////////////////////////////////////
+// Classes
+////////////////////////////////////////////////////////////////////////////
+
+class nrColorRamp;
+
+////////////////////////////////////////////////////////////////////////////
+
+class nrChannelMarble : public nrChannel
+{
+	friend class nrChannel;
+
+public:
+    
+    nrChannelMarble( float scale = 1.0f, float period = 1.0f, float distortion = 1.0f, int octaves = 8 );
+    virtual ~nrChannelMarble( void );
+    
+    // Return the color of this channel.
+    virtual nrColor Color( const nrVector3& point ) const;
+	
+    // Return a new channel parsed from a file.  The channel directive
+    // has the following form:
+    // 
+    // marble < scale period distortion (octaves) >
+    // 
+    // elements in ()'s are optional.
+    static nrChannelMarble* Parse( nrParser& parser );
+	
+private:
+	
+	float m_Scale;
+	float m_Period;
+	float m_Distortion;
+	int m_Octaves;
+	nrColorRamp* m_ColorRamp;
+};
+
+////////////////////////////////////////////////////////////////////////////
+
+#endif  // NRCHANNELMARBLE_H

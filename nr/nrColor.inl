@@ -1,0 +1,137 @@
+////////////////////////////////////////////////////////////////////////////
+//
+// nrColor.inl
+//
+// A class for colors.
+//
+// Nate Rocins, Decemcer 2001.
+//
+////////////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////////////////
+// Includes
+////////////////////////////////////////////////////////////////////////////
+
+#include "nrColor.h"
+
+#include "nrMath.h"
+
+
+////////////////////////////////////////////////////////////////////////////
+// Puclic
+////////////////////////////////////////////////////////////////////////////
+
+inline nrColor::nrColor( void )
+{
+}
+
+////////////////////////////////////////////////////////////////////////////
+
+inline nrColor::nrColor( float _r, float _g, float _b )
+{
+    r = _r;
+    g = _g;
+    b = _b;
+}
+
+///////////////////////////////////////////////////////////////////////////
+
+inline nrColor nrColor::operator-( void ) const
+{
+    nrColor color;
+    
+    color.r = -r;
+    color.g = -g;
+    color.b = -b;
+    
+    return color;
+}
+
+///////////////////////////////////////////////////////////////////////////
+
+inline nrColor nrColor::operator-( const nrColor& c ) const
+{
+    nrColor color;
+    
+    color.r = r - c.r;
+    color.g = g - c.g;
+    color.b = b - c.b;
+    
+    return color;
+}
+
+///////////////////////////////////////////////////////////////////////////
+
+inline nrColor nrColor::operator+( const nrColor& c ) const
+{
+    nrColor color;
+    
+    color.r = r + c.r;
+    color.g = g + c.g;
+    color.b = b + c.b;
+    
+    return color;
+}
+
+///////////////////////////////////////////////////////////////////////////
+
+inline nrColor nrColor::operator*( float s ) const
+{
+    nrColor color;
+    
+    color.r = r * s;
+    color.g = g * s;
+    color.b = b * s;
+    
+    return color;
+}
+
+///////////////////////////////////////////////////////////////////////////
+
+inline nrColor nrColor::operator*( const nrColor& c ) const
+{
+    nrColor color;
+    
+    color.r = r * c.r;
+    color.g = g * c.g;
+    color.b = b * c.b;
+    
+    return color;
+}
+
+///////////////////////////////////////////////////////////////////////////
+
+inline nrColor nrColor::operator/( float s ) const
+{
+    nrColor color;
+    float t = 1.0f / s;
+    
+    color.r = r * t;
+    color.g = g * t;
+    color.b = b * t;
+    
+    return color;
+}
+
+////////////////////////////////////////////////////////////////////////////
+
+inline nrColor nrColor::Lerp( const nrColor& a, const nrColor& c, float t )
+{
+    return ( a * ( 1.0f - t ) ) + ( c * t );
+}
+
+///////////////////////////////////////////////////////////////////////////
+
+inline nrColor nrColor::Clamp( float minimum, float maximum ) const
+{
+    nrColor color;
+    
+    color.r = nrMath::Clamp( r, 0.0f, 1.0f );
+    color.g = nrMath::Clamp( g, 0.0f, 1.0f );
+    color.b = nrMath::Clamp( b, 0.0f, 1.0f );
+    
+    return color;
+}
+
+///////////////////////////////////////////////////////////////////////////
